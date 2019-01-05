@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- axios cdn link -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<style>
+	.nostyle {
+		list-style: none;
+	}
+</style>
+
+
+<div id="vcomp">
+  <appnavi
+  v-for="elem in appnav"
+  v-bind:key="elem.id"
+  v-bind:imageurl="elem.imageurl"
+  v-bind:title="elem.title"
+  v-bind:body="elem.description">  	
+  </appnavi>
+  <div style="display: inline-flex;width: 100%;">
+  	<div style="display: inline-block;">
+  	 <app-menu 
+  	 v-for="elem in appsidebar"
+  	 :key=elem.id
+  	 :menuname=elem.menuname
+  	 :link=elem.link
+  	 :submenus=elem.submenus
+  	 >
+  	 </app-menu>
+  	</div style="width: 100%;">
+		<div style="width: 100%;">
+			<!--   <app-view>  -->
+			   
+				    <app-content
+				    v-for="elem in contentbodies"
+				    :key="elem.id"
+				    v-bind:imageurl="elem.imageurl"
+				    v-bind:contenttitle="elem.contenttitle"
+				    v-bind:summary="elem.summary"
+				    v-bind:details="elem.details"
+				    ></app-content>
+			  <!-- </app-view>   -->
+		</div>
+	</div>
+</div>
+
+<script>
+	
+// step two make an axios call to get the data.
+
+// define props for side bar.
+// template
+//test
+
+Vue.component('app-content', {
+	props: ['contenttitle', 'summary','details','imageurl'],
+	template : '<div style=" width: 100%;background-color: #00ffe6; border: 0.5px dashed black"> <div style=" height: 500px; background-color: #00ffe6; padding-left: 5px; padding-top: 5px">     <div style="display: inline-flex;">       <div style="width:100%"><img v-bind:src="imageurl" height="100" width="100" ></div>   <div>    <div> {{contenttitle}}    </div>    <div> {{summary}}   </div><div>{{details}}       </div>  </div> </div> </div></div>'
+});
+
+Vue.component('app-view', {
+	template: '<div style="display: inline-flex; background-color: #00ffe6; border: 0.5px dashed;height: 500px;width:500px;ul{ list-style-type: none;"></div>'
+	});
+
+Vue.component('app-menu', { 
+	props : ['menuname','link','submenus'],
+	template : '<div style=""><ul class="nostyle"><li class="nostyle"><a v-bind:href="link" >{{menuname}}</a><div v-if="submenus != null"> <app-menu v-for="menu2 in submenus" :menuname="menu2.menuname" :link="menu2.link" :submenus="menu2.submenus"> </app-menu></div></li></ul> </div>'
+});
+
+
+Vue.component('appnavi', {
+	props : ['imageurl','title','body'],
+	template : '<div style=" height: 90px; background-color: #7FFFD4; padding-left: 5px; padding-top: 5px"><div style="display: inline-flex;"><div style=""><img v-bind:src="imageurl" alt="https://tinyurl.com/nobwntg" height="80" width="80" ></div><div style=" "><div style=" display: inline-block;">{{title}}</div><div style=" ">{{body}}</div></div></div></div>'
+});
+
+
+var vcompNameNoProb = new Vue({
+	el: '#vcomp',
+	data : {
+	"appnav" : [{
+		"id" : 1,
+		"imageurl" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+		"title" : " title of page ",
+		"description" : " description "
+	}],
+	"appsidebar" : [
+		
+		{
+			"id" : 1,
+			"menuname" : "menu1",
+			"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+			"submenus" : [
+				{
+					"id" : 11,
+					"menuname" : "menu11",
+				"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+				"submenus" : null
+				},
+				{
+					"id" : 12,
+					"menuname" : "menu12",
+				"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+				"submenus" : null
+				},
+				{"id" : 13,
+				"menuname" : "menu13",
+				"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+				"submenus" : null
+				},
+				{"id" : 14,
+				"menuname" : "menu14",
+				"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+				"submenus" : [
+					 {	"id" : 141,
+					 	"menuname" : "menu141",
+						"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg" 
+					 }
+				]
+				}
+
+
+			]
+		},
+		{
+			"id" : 2,
+			"menuname" : "menu2",
+			"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+			"submenus" : [
+				{
+				"id" : 21,
+				"menuname" : "menu21",
+				"link" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+				"submenus" : null
+				}
+
+			]
+		}
+	],
+	"contentbodies" : [
+		{
+			"id" : 1,
+			"imageurl" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+			"contenttitle" : "title of element 1",
+			"summary" : "summary of element 1 ",
+			"details" : "content of the element 1"
+		},
+		{
+			"id" : 2,
+			"imageurl" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+			"contenttitle" : "title of element 2",
+			"summary" : "summary of element 2 ",
+			"details" : "content of the element 2"
+		},
+		{
+			"id" : 3,
+			"imageurl" : "https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg",
+			"contenttitle" : "title of element 3",
+			"summary" : "summary of element 3 ",
+			"details" : "content of the element 3"
+		}
+	]
+	}
+})
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{
+	"app-nav" : {
+		"img" : "url here",
+		"title" : " title of page ",
+		"description" : " description "
+	},
+	"app-side-bar" : [
+		{
+			"menu-name" : "menu1",
+			"link" : "url here",
+			"sub-menus" : [
+				{"menu-name" : "menu11",
+				"link" : "url here",
+				"sub-menus" : null
+				}
+
+			]
+		},
+		{
+			"menu-name" : "menu2",
+			"link" : "url here",
+			"sub-menus" : [
+				{"menu-name" : "menu21",
+				"link" : "url here",
+				"sub-menus" : null
+				},
+				{"menu-name" : "menu22",
+				"link" : "url here",
+				"sub-menus" : null
+				},
+				{"menu-name" : "menu23",
+				"link" : "url here",
+				"sub-menus" : null
+				},
+				{"menu-name" : "menu24",
+				"link" : "url here",
+				"sub-menus" : [
+					 {	
+					 	"menu-name" : "menu241",
+						"link" : "url here" 
+					 }
+				]
+				}
+
+
+			]
+		}
+	],
+	"app-content" : [
+		{
+			"id" : 1,
+			"img" : "image url",
+			"contentTitle" : "title of element 1",
+			"summary" : "summary of element 1 content",
+			"details" "content of the element 1"
+		},
+		{
+			"id" : 2,
+			"img" : "image url",
+			"contentTitle" : "title of element 2",
+			"summary" : "summary of element 2 content",
+			"details" "content of the element 2"
+		},
+		{
+			"id" : 3,
+			"img" : "image url",
+			"contentTitle" : "title of element 3",
+			"summary" : "summary of element 3 content",
+			"details" "content of the element 3"
+		}
+	]
+}

@@ -1,0 +1,263 @@
+<html>
+<head>
+  <style type="text/css">
+  .cssvisible {
+    visibility: visible;
+  }
+  .cssinvisible {
+    visibility: hidden;
+  }
+
+</style>
+
+
+</head>
+  <body>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- axios cdn link -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+  <div id="app">
+    {{ message }}
+  </div>
+
+<div id="app-2">
+  <span v-bind:title="message">
+   hover here
+  </span>
+</div>
+
+<div id="app-3">
+  <span  v-if="seen">
+   appear
+  </span>
+</div>
+
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+</div>
+
+
+<!-- interesting code bit-->
+<div id="app-5">
+  <ol>
+    <li v-for="book in booklist[0].books">
+      {{ book.title }} : <ul><li v-for="elem in book.authors"> {{ elem }} </li></ul> : {{ book.edition }} : {{ book.year }}
+    </li>
+  </ol>
+</div>
+
+
+<div id="app-6">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">Reverse Message</button>
+
+<!-- it's mouse over.. not hover -->
+  <p v-on:mouseover="reverseMessageOnHover" >on hover {{ message2 }}</p>
+
+  <p v-on:mouseover="hideMessageOnHover">on  hover disappear/reappear <span v-bind:class="isVisible" >{{message2}}</span></p>
+</div>
+
+
+<div id="app-7">
+  <p>{{ message }}</p>
+  <input v-model="message">
+  <input v-model="moredata">
+</div>
+
+<div>
+<p>todo list</p>
+<ol>
+  <!-- Create an instance of the todo-item component -->
+  <todo-items></todo-items>
+</ol>
+  </div>
+
+
+<div id="app-8">
+  <ol>
+   
+    <todo-item
+      v-for="item in groceryList"
+      v-bind:todo="item"
+      v-bind:key="item.id"
+    ></todo-item>
+  </ol>
+</div>
+
+<div id="app-9">
+  {{info}}
+</div>
+ 
+
+
+
+<script>
+  Vue.config.devtools = true;
+
+  var app9 = new Vue({
+    el: '#app-9',
+    data : function () {
+      res : null
+    },
+    mounted: function() {
+      axios
+        .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => (this.res = response));
+
+    }
+  });
+
+  Vue.component('coinbscall', {
+    props: ['cbc'],
+    template : '<div>{{test}}</div>'
+  });
+
+
+   Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+});
+
+   var app8 = new Vue({
+  el: '#app-8',
+  data: {
+    groceryList: [
+      { id: 0, text: 'one' },
+      { id: 1, text: 'two' },
+      { id: 2, text: 'three' }
+    ]
+  }
+});
+
+// Define a new component called todo-item
+Vue.component('todo-item', {
+  template: '<li>This is a todo</li>'
+})
+
+Vue.component('todo-items', {
+  template: '<li>This is a todo</li>'
+})
+
+
+
+
+var app7 = new Vue({
+  el: '#app-7',
+  data: {
+    message: 'Hello Vue2!',
+    moredata : '{"k":["4","5","6"],"bev":["coffee","tea"]}'
+  }
+})
+
+  var app6 = new Vue({
+    el: '#app-6',
+    data : {
+      message : "hello all",
+      message2 : "on hover reverse",
+      isVisible : 'visible'
+    },
+    methods : {
+        reverseMessage: function () {
+        this.message = this.message.split('').reverse().join('')
+      },
+      reverseMessageOnHover: function() {
+        this.message2 = this.message2.split('').reverse().join('')
+      },
+      hideMessageOnHover: function() {
+        if (this.isVisible == 'cssinvisible') {
+          this.isVisible = 'cssvisible';
+        } else {
+          this.isVisible = 'cssinvisible';
+        }
+      }
+
+    }
+  });
+
+
+  var app4 = new Vue({
+    el: '#app-4',
+    data: {
+      todos : [
+      {text: "1"},
+      {text: "2"},
+      {text: "3"}
+      ]
+    }
+  });
+
+
+  var app5 = new Vue({
+    el: '#app-5',
+    data: {
+      booklist : [{
+        "books":
+              [
+                {
+                    "title": "Professional JavaScript",
+                    "authors": [
+                        "Nicholas C. Zakas"
+                    ],
+                    "edition": 3,
+                    "year": 2011
+                },
+                {
+                    "title": "Professional JavaScript",
+                    "authors": [
+                        "Nicholas C.Zakas"
+                    ],
+                    "edition": 2,
+                    "year": 2009
+                },
+                {
+                    "title": "Professional Ajax",
+                    "authors": [
+                        "Nicholas C. Zakas",
+                        "Jeremy McPeak",
+                        "Joe Fawcett"
+                    ],
+                    "edition": 2,
+                    "year": 2008
+                }
+              ]
+         }]
+        }
+    });
+
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!'
+    }
+  });
+
+  var app2 = new Vue({
+    el: '#app-2',
+    data : {
+      message :  "loaded by Vue"
+      // v-bind
+    }
+  });
+
+  var app3 = new Vue({
+  el: '#app-3',
+  data: {
+    seen: true
+    // seen: false
+  }
+});
+
+
+  
+</script> 
+
+  </body>
+</html>

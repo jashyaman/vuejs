@@ -1,0 +1,1 @@
+<div style="ul{ list-style-type: none; }"><ul><li v-for="menu in appsidebar" ><a v-bind:src="menu.link" >{{menu.menu-name}}</a><div v-if="menu.sub-menus != null"> <app-menu v-for="menu in submenus" :menuname="menu.menuname" :link="menu.link" :submenus="menu.submenus"> </app-menu></li></ul> </div>

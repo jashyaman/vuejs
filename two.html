@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- axios cdn link -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+
+
+
+
+
+<div id="blogpost"> {{ posts[0].title }}</div>
+<blogpost-demo v-bind:title="">{{ posts[1].title }} </blogpost-demo>
+<div id="components-demo" > 
+	<button-counter></button-counter>
+
+	<blogpost-demo
+  v-for="post in posts"
+  v-bind:key="post.id"
+  v-bind:title="post.title"
+></blogpost-demo> 
+
+
+<blogpost-demo
+  v-for="post in posts"
+  v-bind:key="post.id"
+  v-bind:title="post.title"
+></blogpost-demo> 
+
+
+</div>
+
+
+<div id="todo-item">
+	<todo-item
+	v-for="nameElem in names"
+	v-bind:key="nameElem.id"
+	v-bind:name="nameElem.name"
+	></todo-item>
+</div>
+
+<!-- html -->
+
+<h1>here</h1>
+hello
+<div id="vcomp">
+  <app-nav
+  v-bind:imageurl="app-nav.img"
+  v-bind:title="app-nav.title"
+  v-bind:body="app-nav.description"
+  ></app-nav>
+  <!-- <app-view>
+    <app-sidebar></app-sidebar>
+    <app-content></app-content>
+  </app-view> -->
+</div>
+
+<h1>here</h1>
+
+
+
+
+</div>
+
+<!-- vue code -->
+  <script >
+
+
+
+// <div id="vcomp">
+//   <app-nav></app-nav>
+//   <app-view>
+//     <app-sidebar></app-sidebar>
+//     <app-content></app-content>
+//   </app-view>
+// </div>
+
+
+
+
+
+  	Vue.component('todo-item', {
+  		props : ['name'],
+  template: '<li>This is a todo {{ name }}</li>'
+})
+
+  	var todoItem = new Vue({
+  		el: '#todo-item',
+  		data : {
+  			names : [
+  			{ id : 4, name: 'abc'},
+  			{ id : 5, name: 'def'},
+  			{ id : 6, name: 'ghi'}
+  			]
+  		}
+  	})
+
+
+	
+	var blogpost  = new Vue({
+  el: '#blogpost',
+  data: {
+    posts: [
+      { id: 12, title: 'title1' },
+      { id: 22, title: 'title2' },
+      { id: 32, title: 'title3' }
+    ]
+  }});
+
+Vue.component('blogpost-demo', {
+  props: ['title'],
+  template: '<h3>{{ title }}</h3>'
+});
+
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+});
+
+var componentsDemo = new Vue({ el: '#components-demo',
+data: {
+    posts: [
+      { id: 1, title: 'My journey with Vue' },
+      { id: 2, title: 'Blogging with Vue' },
+      { id: 3, title: 'Why Vue is so fun' }
+    ]
+  } 
+});
+
+
+
+/*
+go through 
+Some resources I got inspired by
+https://vuex.vuejs.org/en/structure.html
+https://github.com/vuejs/vue-hackernews-2.0/tree/master/src
+https://github.com/mchandleraz/realworld-vue/tree/master/src
+
+
+read 
+Vue.js official styleguide
+https://vuejs.org/v2/style-guide/
+
+
+*/
+
+</script>
+
+</body>
+</html>
